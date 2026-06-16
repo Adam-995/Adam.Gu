@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adam | Aspiring Physicist & Problem Solver</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- Global Custom Properties & Resets --- */
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --card-border: #1f2937;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.15);
+            --font-sans: 'Inter', sans-serif;
+            --nav-height: 70px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        section {
+            padding: 100px 2rem 80px 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            min-height: calc(100vh - var(--nav-height));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- Scroll Animation Classes --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Global Components --- */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        .badge-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .badge {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: var(--text-main);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* --- Navigation Bar --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background: rgba(11, 15, 25, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1100px;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-main);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a.active::after, .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        /* --- Hero Section --- */
+        #hero {
+            padding-top: calc(var(--nav-height) + 40px);
+            align-items: flex-start;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-pre {
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-tagline {
+            font-size: 1.75rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+
+        .hero-tagline strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin-bottom: 3rem;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--card-border);
+            background-color: rgba(255, 255, 255, 0.02);
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-muted);
+            transform: translateY(-2px);
+        }
+
+        /* --- About Me Section --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .about-img-container {
+            position: relative;
+            width: 100%;
+            max-width: 360px;
+            justify-self: center;
+        }
+
+        .about-img-container::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .about-img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 8px;
+            position: relative;
+            z-index: 2;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .about-img i {
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.1);
+        }
+
+        .about-img-container:hover::before {
+            top: 8px;
+            left: 8px;
+        }
+
+        /* --- Academics & Awards Section --- */
+        .academics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .featured-card {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #111827 0%, #0f172a 100%);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .card-icon {
+            font-size: 1.75rem;
+            color: var(--accent);
+            margin-bottom: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-subtitle {
+            font-size: 0.95rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .meta-list {
+            margin-top: 1.2rem;
+        }
+
+        .meta-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.6rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-list li i {
+            color: var(--accent);
+            width: 16px;
+        }
+
+        /* --- Leadership & Extracurriculars --- */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .timeline-meta h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .timeline-meta p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .timeline-content h3 span {
+            color: var(--accent);
+            font-weight: 400;
+            font-size: 1.1rem;
+        }
+
+        .timeline-content ul {
+            margin-top: 1rem;
+        }
+
+        .timeline-content li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .timeline-content li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent);
+        }
+
+        /* --- Footer & Contact --- */
+        footer {
+            border-top: 1px solid var(--card-border);
+            padding: 50px 2rem;
+            background-color: #080b12;
+            text-align: center;
+        }
+
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            max-width: 500px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-icon {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            width: 40px;
+            height: 40px;
+            border-radius: 50px;
+            border: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icon:hover {
+            color: #fff;
+            background-color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+            color: rgba(156, 163, 175, 0.4);
+            margin-top: 1rem;
+        }
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 900px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .about-img-container {
+                grid-row: 1;
+            }
+            .academics-grid {
+                grid-template-columns: 1fr;
+            }
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+                z-index: 1001;
+            }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: #0e1422;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: right 0.4s ease;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+                border-left: 1px solid var(--card-border);
+            }
+            .nav-links.active {
+                right: 0;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-tagline {
+                font-size: 1.4rem;
+            }
+            .hero-ctas {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#hero" class="logo">Adam<span>.</span></a>
+            <nav class="nav-links" id="navLinks">
+                <a href="#about" class="nav-item">About</a>
+                <a href="#academics" class="nav-item">Academics</a>
+                <a href="#leadership" class="nav-item">Leadership</a>
+                <a href="#contact" class="nav-item">Contact</a>
+            </nav>
+            <div class="menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="hero-content">
+            <p class="hero-pre">WELCOME TO MY PORTFOLIO</p>
+            <h1 class="hero-title">Hi, I'm Adam.</h1>
+            <h2 class="hero-tagline">Aspiring <strong>Physicist</strong> & <strong>Problem Solver</strong>.</h2>
+            <p class="hero-desc">
+                Fascinated by the fundamental mechanics governing our universe, I explore structural problems at the intersection of mathematical reasoning and physical exploration. Driven by deep analytical curiosity and proven through elite mathematical challenges.
+            </p>
+            <div class="hero-ctas">
+                <a href="#academics" class="btn btn-primary">Explore My Work <i class="fas fa-arrow-right"></i></a>
+                <a href="#contact" class="btn btn-secondary">Contact Me</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="reveal">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>
+                    I am a Grade 11 student dedicated to diving deep into the natural laws that script reality. For me, Physics isn't just an academic discipline—it's an active lens through which I decode structural complexity, utilizing mathematics to map concepts into actionable data.
+                </p>
+                <p>
+                    Whether modeling classical kinetic systems or calculating abstract mathematical problems under strict conditions, I thrive on rigorous challenges. Beyond my academic pursuits, I emphasize active leadership and team building, translating individual focus into collective community spaces.
+                </p>
+                <p>Core Areas of Interest & Competencies:</p>
+                <div class="badge-grid">
+                    <span class="badge">Theoretical Physics</span>
+                    <span class="badge">Mathematical Modeling</span>
+                    <span class="badge">Data Analysis & Python</span>
+                    <span class="badge">Experimental Design</span>
+                    <span class="badge">Quantitative Reasoning</span>
+                    <span class="badge">Team Architecture</span>
+                </div>
+            </div>
+            <div class="about-img-container">
+                <div class="about-img">
+                    <i class="fas fa-user-astronaut"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="academics" class="reveal">
+        <h2 class="section-title">Academics & Distinctions</h2>
+        <div class="academics-grid">
+            
+            <div class="card featured-card">
+                <div class="card-icon"><i class="fas fa-award"></i></div>
+                <h3 class="card-title">Senior Mathematical Challenge (SMC)</h3>
+                <div class="card-subtitle">Gold Medal Distinction</div>
+                <p class="card-desc">
+                    Placed in the top tier nationally by solving complex, unstructured problems testing high-level logical reasoning, advanced numeric capability, and conceptual agility under rigorous testing criteria. This experience accelerated my capability to construct fluid mathematical proofs used daily in advanced physics.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3 class="card-title">Academic Profile</h3>
+                <div class="card-subtitle">Grade 11 Student</div>
+                <p class="card-desc">Currently pursuing rigorous coursework prioritizing analytical development and computational math tracks.</p>
+                <ul class="meta-list">
+                    <li><i class="fas fa-school"></i> [Insert School Name]</li>
+                    <li><i class="fas fa-book"></i> Key Focus: Physics, Advanced Mathematics</li>
+                    <li><i class="fas fa-chart-line"></i> Top Tier Predicted Grades / GPA Placeholder</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-atom"></i></div>
+                <h3 class="card-title">Advanced Studies</h3>
+                <div class="card-subtitle">Curriculum Alignment</div>
+                <p class="card-desc">Extending outside core bounds to grasp foundational structures within thermodynamics, quantum principles, and advanced vector mechanics.</p>
+                <div class="badge-grid">
+                    <span class="badge">Calculus</span>
+                    <span class="badge">Classical Mechanics</span>
+                    <span class="badge">Electromagnetism</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="leadership" class="reveal">
+        <h2 class="section-title">Leadership & Impact</h2>
+        <div class="timeline">
+            
+            <div class="timeline-item">
+                <div class="timeline-meta">
+                    <h4>Founder & President</h4>
+                    <p>Sep 2024 - Present</p>
+                </div>
+                <div class="timeline-content">
+                    <h3>School Badminton Club <span>| Initiative & Leadership</span></h3>
+                    <p>Recognized a gap in the student athletic community and took complete initiative to structure, establish, and formalize an active athletic program within the school infrastructure.</p>
+                    <ul>
+                        <li>Authored the club constitution, negotiated gym space allocations with senior staff, and secured crucial initial athletic funding.</li>
+                        <li>Designed weekly targeted training modules and physical agility drills for 30+ active members of varying skill baselines.</li>
+                        <li>Cultivated an inclusive team climate emphasizing active communication, tactical strategy, and mental resilience.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-meta">
+                    <h4>Active Contributor</h4>
+                    <p>Academic Year 2025</p>
+                </div>
+                <div class="timeline-content">
+                    <h3>[Additional Extracurricular Role] <span>| Component Subtitle</span></h3>
+                    <p>Use this space to display another key project, science club activity, peer mentoring program, or community volunteering project that demonstrates your versatile background.</p>
+                    <ul>
+                        <li>Led key initiatives, driving clear metrics and team execution plans.</li>
+                        <li>Applied specialized analytical thinking directly toward solving complex collaborative challenges.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-container">
+            <h2 class="logo">Adam<span>.</span></h2>
+            <p class="footer-text">
+                I am actively looking for academic collaborations, research opportunities, or university dialogues. Let's build something insightful together.
+            </p>
+            <div class="social-links">
+                <a href="mailto:your.email@example.com" class="social-icon" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://linkedin.com" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+            <p class="copyright">&copy; 2026 Adam. Built for University Admissions portfolios.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Mobile Menu Toggle Handling ---
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuBtn.firstElementChild.classList.toggle('fa-bars');
+            menuBtn.firstElementChild.classList.toggle('fa-xmark');
+        });
+
+        // Close mobile menu on clicking any link
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuBtn.firstElementChild.classList.add('fa-bars');
+                menuBtn.firstElementChild.classList.remove('fa-xmark');
+            });
+        });
+
+        // --- ScrollSpy Engine (Highlight active link based on scroll) ---
+        const sections = document.querySelectorAll('section, footer');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const scrollPos = window.scrollY + 120; // offset to align with navbar logic
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPos >= sectionTop && scrollPos < (sectionTop + sectionHeight)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // --- Scroll Reveal Animation Logic (Intersection Observer) ---
+        const observerOptions = {
+            root: null,
+            threshold: 0.12, // triggers early enough to maintain visual flow
+            rootMargin: "0px"
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // layout animates beautifully once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(element => {
+            revealObserver.observe(element);
+        });
+    </script>
+</body>
+</html>
